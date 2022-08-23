@@ -114,6 +114,7 @@ public class Main {
      Удаление таблицы
     */
         Main app = new Main();
+        /*
         Util util = Util.getInstance();
         try(final Connection connection = util.getDbconnection() ) {
             String sqlShowTables = "SELECT address FROM address WHERE id > ?";
@@ -124,8 +125,26 @@ public class Main {
                 String address = resultSet.getString("address");
                 System.out.printf("ADDRESS: %s \n", address);
             }
+        } finally {
             System.out.println("Done");
         }
+        System.out.println("Connection:" + util.getDbconnection().equals(null));
         //app.sqlApproach();
+        util = Util.getInstance();
+        System.out.println("Connection:" + util.getDbconnection().equals(null));
+        util.refreshConnection();
+        try(final Connection connection = util.getDbconnection() ) {
+            String sqlShowTables = "SELECT address FROM address WHERE id > ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlShowTables);
+            preparedStatement.setInt(1, 1);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String address = resultSet.getString("address");
+                System.out.printf("ADDRESS: %s \n", address);
+            }
+        } finally {
+            System.out.println("Done");
+        }
+         */
     }
 }

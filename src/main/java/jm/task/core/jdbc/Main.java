@@ -1,5 +1,7 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.util.Util;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -102,7 +104,7 @@ public class Main {
         }        
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
     // реализуйте алгоритм здесь
     /*
      Создание таблицы User(ов)
@@ -112,6 +114,18 @@ public class Main {
      Удаление таблицы
     */
         Main app = new Main();
-        app.sqlApproach();
+        Util util = Util.getInstance();
+        try(final Connection connection = util.getDbconnection() ) {
+            String sqlShowTables = "SELECT address FROM address WHERE id > ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlShowTables);
+            preparedStatement.setInt(1, 1);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String address = resultSet.getString("address");
+                System.out.printf("ADDRESS: %s \n", address);
+            }
+            System.out.println("Done");
+        }
+        //app.sqlApproach();
     }
 }

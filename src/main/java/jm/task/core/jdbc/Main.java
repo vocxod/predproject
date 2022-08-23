@@ -1,5 +1,8 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
+import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.Connection;
@@ -8,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -114,37 +118,19 @@ public class Main {
      Удаление таблицы
     */
         Main app = new Main();
-        /*
-        Util util = Util.getInstance();
-        try(final Connection connection = util.getDbconnection() ) {
-            String sqlShowTables = "SELECT address FROM address WHERE id > ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlShowTables);
-            preparedStatement.setInt(1, 1);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String address = resultSet.getString("address");
-                System.out.printf("ADDRESS: %s \n", address);
-            }
-        } finally {
-            System.out.println("Done");
+        UserService userService = new UserServiceImpl();
+        // stage 1
+        userService.createUsersTable();
+        // stage 2 (add 4 users)
+        userService.saveUser("Отто", "фон Штирлиц", (byte) 45);
+        userService.saveUser("Robin", "Good", (byte) 25);
+        userService.saveUser("Павлик", "Морозов", (byte) 45);
+        userService.saveUser("Галилео", "Галилей", (byte) 50);
+        List<User> userList = userService.getAllUsers();
+        for(User user: userList) {
+            System.out.println(user);
         }
-        System.out.println("Connection:" + util.getDbconnection().equals(null));
-        //app.sqlApproach();
-        util = Util.getInstance();
-        System.out.println("Connection:" + util.getDbconnection().equals(null));
-        util.refreshConnection();
-        try(final Connection connection = util.getDbconnection() ) {
-            String sqlShowTables = "SELECT address FROM address WHERE id > ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlShowTables);
-            preparedStatement.setInt(1, 1);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String address = resultSet.getString("address");
-                System.out.printf("ADDRESS: %s \n", address);
-            }
-        } finally {
-            System.out.println("Done");
-        }
-         */
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
     }
 }

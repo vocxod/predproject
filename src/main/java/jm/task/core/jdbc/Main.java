@@ -16,15 +16,8 @@ public class Main {
     static final String USER = "pp1134";
     static final String PASS = "Pp1134Apple1976@@@###Fuck";
 
-    public static void main(String[] args) {
-    // реализуйте алгоритм здесь
-    /*
-     Создание таблицы User(ов)
-     Добавление 4 User(ов) в таблицу с данными на свой выбор. После каждого добавления должен быть вывод в консоль ( User с именем – name добавлен в базу данных )
-     Получение всех User из базы и вывод в консоль ( должен быть переопределен toString в классе User)
-     Очистка таблицы User(ов)
-     Удаление таблицы
-    */
+    
+    public static void sqlApproach() {
         // SQL JDBC approach
         String sqlCreateUsertable = "CREATE TABLE IF NOT EXISTS user "
                 + "(id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) "
@@ -106,6 +99,19 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.WARNING, null, se);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.WARNING, null, ex);
-        }
+        }        
+    }
+    
+    public static void main(String[] args) {
+    // реализуйте алгоритм здесь
+    /*
+     Создание таблицы User(ов)
+     Добавление 4 User(ов) в таблицу с данными на свой выбор. После каждого добавления должен быть вывод в консоль ( User с именем – name добавлен в базу данных )
+     Получение всех User из базы и вывод в консоль ( должен быть переопределен toString в классе User)
+     Очистка таблицы User(ов)
+     Удаление таблицы
+    */
+        Main app = new Main();
+        app.sqlApproach();
     }
 }

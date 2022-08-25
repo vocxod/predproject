@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ public class Main {
     static final String DB_URL = "jdbc:mysql://localhost/pp1134";
     static final String USER = "pp1134";
     static final String PASS = "Pp1134Apple1976@@@###Fuck";
+
 
     
     public static void sqlApproach() {
@@ -109,14 +111,7 @@ public class Main {
     }
     
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-    // реализуйте алгоритм здесь
-    /*
-     Создание таблицы User(ов)
-     Добавление 4 User(ов) в таблицу с данными на свой выбор. После каждого добавления должен быть вывод в консоль ( User с именем – name добавлен в базу данных )
-     Получение всех User из базы и вывод в консоль ( должен быть переопределен toString в классе User)
-     Очистка таблицы User(ов)
-     Удаление таблицы
-    */
+
         Main app = new Main();
         UserService userService = new UserServiceImpl();
         // stage 1

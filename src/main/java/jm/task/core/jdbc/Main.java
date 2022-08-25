@@ -30,10 +30,18 @@ public class Main {
         userService.saveUser("Павлик", "Морозов", (byte) 45);
         userService.saveUser("Галилео", "Галилей", (byte) 50);
         List<User> userList = userService.getAllUsers();
-        for(User user: userList) {
+        for(jm.task.core.jdbc.model.User user: userList) {
             System.out.println(user);
         }
-        userService.cleanUsersTable();
+        /*
+        userService.removeUserById(12);
+        userService.removeUserById(13);
+        userService.removeUserById(14);
+        userService.removeUserById(15);
+        userService.removeUserById(16);
+        userService.removeUserById(2222);
+         */
+        // userService.cleanUsersTable();
         userService.dropUsersTable();
     }
 }

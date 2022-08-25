@@ -99,7 +99,7 @@ public class UserDaoHibernateImpl implements UserDao {
         session.beginTransaction();
         try {
             Query query = session.createQuery("DELETE User WHERE id > :minId");
-            query.setParameter("minId", 0);
+            query.setParameter("minId", new Long(0));
             int result = query.executeUpdate();
             if (result > 0) {
                 System.out.println(result + " users removed.");
@@ -108,6 +108,8 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println("Error delete all users!");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         session.close();
     }

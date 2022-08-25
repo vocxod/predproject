@@ -41,7 +41,7 @@ public class Main {
         userService.removeUserById(16);
         userService.removeUserById(2222);
          */
-        // userService.cleanUsersTable();
-        userService.dropUsersTable();
+        userService.cleanUsersTable();
+        // userService.dropUsersTable();
     }
 }

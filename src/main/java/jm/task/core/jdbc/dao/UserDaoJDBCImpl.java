@@ -25,7 +25,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(sqlCreateUsertable);
-            int sqlResult = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException se) {
             System.out.println(se.getMessage());
@@ -40,7 +40,7 @@ public class UserDaoJDBCImpl implements UserDao {
             Util util = Util.getInstance();
             Connection connection = util.getDbconnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteTable);
-            int sqlResult = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException se) {
             System.out.println(se.getMessage());
             se.printStackTrace();
@@ -60,7 +60,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setInt(3, age);
-            int sqlResult = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException se) {
             System.out.println(se.getMessage());
@@ -75,25 +75,11 @@ public class UserDaoJDBCImpl implements UserDao {
         Connection connection = util.getDbconnection();
         try {
             connection.setAutoCommit(false);
-            // if need check user exist
-            // Opinion: this code is  bad and unlogical.
-            String sqlCheckExists = "SELECT id FROM user WHERE id=? ";
-            PreparedStatement ps = connection.prepareStatement(sqlCheckExists);
-            ps.setLong(1, id);
-            ResultSet userResultSet = ps.executeQuery();
-            while (userResultSet.next()) {
-                // in user table this user is exist. Delete it.
-                if (userResultSet.getLong("id") == id) {
-                    /// This code is well.
-                    PreparedStatement preparedStatement = connection.prepareStatement(
-                            sqlDeleteUserCommand);
-                    preparedStatement.setLong(1, id);
-                    int sqlResult = preparedStatement.executeUpdate();
-                    /// This code is well END.
-                }
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                sqlDeleteUserCommand);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
             connection.commit();
-            // Opinion: this code is  bad and unlogical.  END.
         } catch (SQLException se) {
             System.out.println(se.getMessage());
             se.printStackTrace();
@@ -129,7 +115,7 @@ public class UserDaoJDBCImpl implements UserDao {
             Util util = Util.getInstance();
             Connection connection = util.getDbconnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlClearTable);
-            int sqlResult = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (Exception se) {
             System.out.println(se.getMessage());
             se.printStackTrace();

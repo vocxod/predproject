@@ -49,21 +49,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = Util.getSessionJavaConfigFactory().openSession();
         session.beginTransaction();
         try {
-            User user = session.load(jm.task.core.jdbc.model.User.class, id);
-            // alternative w/o exception -> user2 will eq null
-            /*
-            try {
-                User user2 = session.getSession().get(jm.task.core.jdbc.model.User.class, id);
-                if (user2 == null) {
-                    System.out.println("User2 ID=" + id + " not found");
-                } else {
-                    System.out.println("User2 ID=" + id + " exist.");
-                }
-            } catch (ObjectNotFoundException onfe) {
-                System.out.println("EXCEPTION ID=" + id + " not found");
-            }
-            */
-            // Alternative END
+            User user = session.load(User.class, id);
             session.delete(user);
             session.getTransaction().commit();
         } catch (ObjectNotFoundException | EntityNotFoundException e ) {
@@ -77,18 +63,19 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> resultList = new ArrayList<>();
         Session session = Util.getSessionJavaConfigFactory().openSession();
-        // Variant 1
         /*
         resultList = session.createQuery("SELECT id, name, lastName, age "
                         + "FROM User").getResultList();
-        */
+                        */
         // Variant 2
+
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> rootEntry = criteriaQuery.from(User.class);
         CriteriaQuery<User> all = criteriaQuery.select(rootEntry);
         TypedQuery<User> allQuery = session.createQuery(all);
         resultList = allQuery.getResultList();
+
         session.close();
         return resultList;
     }
@@ -98,12 +85,8 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = Util.getSessionJavaConfigFactory().openSession();
         session.beginTransaction();
         try {
-            Query query = session.createQuery("DELETE User WHERE id > :minId");
-            query.setParameter("minId", new Long(0));
-            int result = query.executeUpdate();
-            if (result > 0) {
-                System.out.println(result + " users removed.");
-            }
+            Query query = session.createQuery("DELETE User WHERE id > 0");
+            query.executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

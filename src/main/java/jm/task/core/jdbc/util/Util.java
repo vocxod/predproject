@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
 import jm.task.core.jdbc.model.User;
 
 public class Util {
@@ -61,7 +60,7 @@ public class Util {
             props.put("hibernate.current_session_context_class", "thread");
             configuration.setProperties(props);
             //we can set mapping file or class with annotation
-            configuration.addAnnotatedClass(jm.task.core.jdbc.model.User.class);
+            configuration.addAnnotatedClass(User.class);
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate Java Config serviceRegistry created");

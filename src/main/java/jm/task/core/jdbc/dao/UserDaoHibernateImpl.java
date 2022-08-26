@@ -6,16 +6,10 @@ import jm.task.core.jdbc.util.Util;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
-
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
@@ -37,11 +31,14 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void saveUser(String name, String lastName, byte age) {
         Session session = Util.getSessionJavaConfigFactory().openSession();
-        session.beginTransaction();
-        User user = new User(name, lastName, age);
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
+        try (session) {
+            session.beginTransaction();
+            User user = new User(name, lastName, age);
+            session.save(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
     }
 
     @Override
@@ -61,21 +58,9 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> resultList = new ArrayList<>();
+        List<User> resultList = new ArrayList<User>();
         Session session = Util.getSessionJavaConfigFactory().openSession();
-        /*
-        resultList = session.createQuery("SELECT id, name, lastName, age "
-                        + "FROM User").getResultList();
-                        */
-        // Variant 2
-
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        Root<User> rootEntry = criteriaQuery.from(User.class);
-        CriteriaQuery<User> all = criteriaQuery.select(rootEntry);
-        TypedQuery<User> allQuery = session.createQuery(all);
-        resultList = allQuery.getResultList();
-
+        resultList = session.createQuery("SELECT a FROM User a", User.class).getResultList();
         session.close();
         return resultList;
     }

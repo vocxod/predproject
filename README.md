@@ -1,1 +1,5 @@
 # predproject
+
+Start from CLI:
+
+java -cp ./target/TaskJDBC-1.0-SNAPSHOT.jar:./target/dependency/antlr-2.7.7.jar:./target/dependency/byte-buddy-1.11.20.jar:./target/dependency/classmate-1.5.1.jar:./target/dependency/FastInfoset-1.2.15.jar:./target/dependency/hamcrest-core-1.3.jar:./target/dependency/hibernate-commons-annotations-5.1.2.Final.jar:./target/dependency/hibernate-core-5.6.3.Final.jar:./target/dependency/hibernate-jpa-2.1-api-1.0.2.Final.jar:./target/dependency/istack-commons-runtime-3.0.7.jar:./target/dependency/jandex-2.2.3.Final.jar:./target/dependency/javax.activation-api-1.2.0.jar:./target/dependency/javax.persistence-api-2.2.jar:./target/dependency/jaxb-api-2.3.1.jar:./target/dependency/jaxb-runtime-2.3.1.jar:./target/dependency/jboss-logging-3.4.2.Final.jar:./target/dependency/jboss-transaction-api_1.2_spec-1.1.1.Final.jar:./target/dependency/junit-4.13.2.jar:./target/dependency/mysql-connector-java-8.0.25.jar:./target/dependency/protobuf-java-3.11.4.jar:./target/dependency/stax-ex-1.8.jar:./target/dependency/txw2-2.3.1.jar jm.task.core.jdbc.Main

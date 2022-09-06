@@ -1,6 +1,5 @@
 package jm.task.core.jdbc.dao;
 
-// import com.mysql.cj.Session;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import java.sql.SQLException;
@@ -18,14 +17,14 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() throws SQLException, ClassNotFoundException {
-        UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
-        userDaoJDBC.createUsersTable();
+        UserDao userDao = new UserDaoJDBCImpl();
+        userDao.createUsersTable();
     }
 
     @Override
     public void dropUsersTable() {
-        UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
-        userDaoJDBC.dropUsersTable();
+        UserDao userDao = new UserDaoJDBCImpl();
+        userDao.dropUsersTable();
     }
 
     @Override

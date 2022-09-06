@@ -28,17 +28,14 @@ public class UserServiceImpl implements UserService {
     }
 
     public void removeUserById(long id) throws SQLException, ClassNotFoundException {
-        // userDaoJDBC.removeUserById(id);
         userDaoHibernate.removeUserById(id);
     }
 
     public List<User> getAllUsers() {
-        // return userDaoJDBC.getAllUsers();
         return userDaoHibernate.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        // userDaoJDBC.cleanUsersTable();
         userDaoHibernate.cleanUsersTable();
     }
 }
